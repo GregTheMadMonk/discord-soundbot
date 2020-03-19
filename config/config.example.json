@@ -11,5 +11,8 @@
   "stayInChannel": false,
   "timeout": 10,
   "deafen": false,
-  "game": ""
+  "game": "",
+  "channelWhitelist": [],
+  "enableInsults": true,
+  "SFWMode": true
 }

@@ -19,7 +19,10 @@ export default class Config implements ConfigInterface {
   public deafen!: boolean;
   public game!: string;
 
-  public channel_whitelist!: string[];
+  public channelWhitelist!: string[];
+
+  public enableInsults!: boolean;
+  public SFWMode!: boolean;
 
   private readonly CONFIG_PATH = path.join(process.cwd(), 'config', 'config.json');
   private readonly MODIFIABLE_FIELDS = [
@@ -31,7 +34,9 @@ export default class Config implements ConfigInterface {
     'deleteMessages',
     'stayInChannel',
     'deafen',
-    'game'
+    'game',
+    'enableInsults',
+    'SFWMode'
   ];
 
   private readonly JSON_KEYS = ['clientId', 'token', ...this.MODIFIABLE_FIELDS];
