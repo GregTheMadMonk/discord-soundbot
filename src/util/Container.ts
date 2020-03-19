@@ -16,6 +16,7 @@ import ConfigCommand from '../bot/commands/ConfigCommand';
 import DownloadCommand from '../bot/commands/DownloadCommand';
 import EntranceCommand from '../bot/commands/EntranceCommand';
 import ExitCommand from '../bot/commands/ExitCommand';
+import FuckMeCommand from '../bot/commands/FuckMeCommand';
 import HelpCommand from '../bot/commands/HelpCommand';
 import IgnoreCommand from '../bot/commands/IgnoreCommand';
 import LastAddedCommand from '../bot/commands/LastAddedCommand';
@@ -23,6 +24,7 @@ import LoopCommand from '../bot/commands/LoopCommand';
 import MostPlayedCommand from '../bot/commands/MostPlayedCommand';
 import NextCommand from '../bot/commands/NextCommand';
 import PingCommand from '../bot/commands/PingCommand';
+import PrintConfCommand from '../bot/commands/PrintConfCommand';
 import RandomCommand from '../bot/commands/RandomCommand';
 import RemoveCommand from '../bot/commands/RemoveCommand';
 import RenameCommand from '../bot/commands/RenameCommand';
@@ -74,6 +76,8 @@ const commands = [
   // HELP / INFO COMMANDS
   new WelcomeCommand(config),
   new HelpCommand(config),
+  new PrintConfCommand(config),
+  new FuckMeCommand(config),
   new LastAddedCommand(),
   new MostPlayedCommand(),
 
