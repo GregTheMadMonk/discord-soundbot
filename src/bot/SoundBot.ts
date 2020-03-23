@@ -12,103 +12,103 @@ import Command from './commands/base/Command';
 import MessageHandler from './MessageHandler';
 
 export default class SoundBot extends Client {
-  private readonly config: Config;
-  private readonly commands: CommandCollection;
-  private readonly messageHandler: MessageHandler;
-  private readonly queue: SoundQueue;
+	private readonly config: Config;
+	private readonly commands: CommandCollection;
+	private readonly messageHandler: MessageHandler;
+	private readonly queue: SoundQueue;
 
-  constructor(
-    config: Config,
-    commands: CommandCollection,
-    messageHandler: MessageHandler,
-    queue: SoundQueue
-  ) {
-    super();
+	constructor(
+		config: Config,
+		commands: CommandCollection,
+		messageHandler: MessageHandler,
+		queue: SoundQueue
+	) {
+		super();
 
-    this.config = config;
-    this.commands = commands;
-    this.messageHandler = messageHandler;
-    this.queue = queue;
+		this.config = config;
+		this.commands = commands;
+		this.messageHandler = messageHandler;
+		this.queue = queue;
 
-    this.addEventListeners();
-  }
+		this.addEventListeners();
+	}
 
-  public start() {
-    this.login(this.config.token);
-  }
+	public start() {
+		this.login(this.config.token);
+	}
 
-  public registerAdditionalCommands(commands: Command[]) {
-    this.commands.registerCommands(commands);
-  }
+	public registerAdditionalCommands(commands: Command[]) {
+		this.commands.registerCommands(commands);
+	}
 
-  private addEventListeners() {
-    this.on('ready', this.onReady);
-    this.on('message', this.onMessage);
-    this.on('voiceStateUpdate', this.onUserLeavesVoiceChannel);
-    this.on('voiceStateUpdate', this.onUserJoinsVoiceChannel);
-    this.on('guildCreate', this.onBotJoinsServer);
-  }
+	private addEventListeners() {
+		this.on('ready', this.onReady);
+		this.on('message', this.onMessage);
+		this.on('voiceStateUpdate', this.onUserLeavesVoiceChannel);
+		this.on('voiceStateUpdate', this.onUserJoinsVoiceChannel);
+		this.on('guildCreate', this.onBotJoinsServer);
+	}
 
-  private onReady() {
-    if (!this.user) return;
+	private onReady() {
+		if (!this.user) return;
 
-    this.user.setActivity(this.config.game);
-    this.commands.registerUserCommands(this.user);
-  }
+		this.user.setActivity(this.config.game);
+		this.commands.registerUserCommands(this.user);
+	}
 
-  private onUserJoinsVoiceChannel(oldState: VoiceState, newState: VoiceState) {
-    const { channel: previousVoiceChannel } = oldState;
-    const { channel: currentVoiceChannel, member } = newState;
+	private onUserJoinsVoiceChannel(oldState: VoiceState, newState: VoiceState) {
+		const { channel: previousVoiceChannel } = oldState;
+		const { channel: currentVoiceChannel, member } = newState;
 
-    if (!member) return;
-    if (!currentVoiceChannel || previousVoiceChannel === currentVoiceChannel) return;
-    if (!entrances.exists(member.id)) return;
+		if (!member) return;
+		if (!currentVoiceChannel || previousVoiceChannel === currentVoiceChannel) return;
+		if (!entrances.exists(member.id)) return;
 
-    const sound = entrances.get(member.id);
-    if (!getSounds().includes(sound)) return;
+		const sound = entrances.get(member.id);
+		if (!getSounds().includes(sound)) return;
 
-    this.queue.add(new QueueItem(sound, currentVoiceChannel));
-  }
+		this.queue.add(new QueueItem(sound, currentVoiceChannel));
+	}
 
-  private onUserLeavesVoiceChannel(oldState: VoiceState, newState: VoiceState) {
-    const { channel: previousVoiceChannel } = oldState;
-    const { channel: currentVoiceChannel, member } = newState;
+	private onUserLeavesVoiceChannel(oldState: VoiceState, newState: VoiceState) {
+		const { channel: previousVoiceChannel } = oldState;
+		const { channel: currentVoiceChannel, member } = newState;
 
-    if (!member) return;
-    if (!previousVoiceChannel || previousVoiceChannel === currentVoiceChannel) return;
-    if (!exits.exists(member.id)) return;
+		if (!member) return;
+		if (!previousVoiceChannel || previousVoiceChannel === currentVoiceChannel) return;
+		if (!exits.exists(member.id)) return;
 
-    const sound = exits.get(member.id);
-    if (!getSounds().includes(sound)) return;
+		const sound = exits.get(member.id);
+		if (!getSounds().includes(sound)) return;
 
-    this.queue.add(new QueueItem(sound, previousVoiceChannel));
-  }
+		this.queue.add(new QueueItem(sound, previousVoiceChannel));
+	}
 
-  private onMessage(message: Message) {
-    this.messageHandler.handle(message);
-  }
+	private onMessage(message: Message) {
+		this.messageHandler.handle(message);
+	}
 
-  private onBotJoinsServer(guild: Guild) {
-    if (!guild.available) return;
+	private onBotJoinsServer(guild: Guild) {
+		if (!guild.available) return;
 
-    const channel = this.findFirstWritableChannel(guild);
-    if (!channel) return;
+		const channel = this.findFirstWritableChannel(guild);
+		if (!channel) return;
 
-    channel.send(localize.t('welcome', { prefix: this.config.prefix }));
-  }
+		channel.send(localize.t('welcome', { prefix: this.config.prefix }));
+	}
 
-  private findFirstWritableChannel(guild: Guild) {
-    if (!guild.me) return undefined;
+	private findFirstWritableChannel(guild: Guild) {
+		if (!guild.me) return undefined;
 
-    const channels = guild.channels.cache
-      .filter(channel => channel.type === 'text')
-      .filter(channel => {
-        const permissions = channel.permissionsFor(guild.me!);
+		const channels = guild.channels.cache
+			.filter(channel => channel.type === 'text')
+			.filter(channel => {
+				const permissions = channel.permissionsFor(guild.me!);
 
-        return Boolean(permissions && permissions.has('SEND_MESSAGES'));
-      });
+				return Boolean(permissions && permissions.has('SEND_MESSAGES'));
+			});
 
-    if (!channels.size) return undefined;
-    return channels.first() as TextChannel;
-  }
+		if (!channels.size) return undefined;
+		return channels.first() as TextChannel;
+	}
 }

@@ -48,44 +48,44 @@ const youtubeValidator = new YoutubeValidator();
 const youtubeDownloader = new YoutubeDownloader(youtubeValidator);
 
 const commands = [
-  new PingCommand(),
+	new PingCommand(),
 
-  // SOUND PLAYING RELATED COMMANDS
-  new SoundCommand(queue),
-  new ComboCommand(queue),
-  new RandomCommand(queue),
-  new LoopCommand(queue),
-  new NextCommand(queue),
-  new SkipCommand(queue),
-  new StopCommand(queue),
+	// SOUND PLAYING RELATED COMMANDS
+	new SoundCommand(queue),
+	new ComboCommand(queue),
+	new RandomCommand(queue),
+	new LoopCommand(queue),
+	new NextCommand(queue),
+	new SkipCommand(queue),
+	new StopCommand(queue),
 
-  // ENTRANCE / EXIT SOUNDS
-  new EntranceCommand(),
-  new ExitCommand(),
+	// ENTRANCE / EXIT SOUNDS
+	new EntranceCommand(),
+	new ExitCommand(),
 
-  // SOUND ADMINISTRATION COMMANDS
-  new AddCommand(attachmentDownloader, youtubeDownloader),
-  new SoundsCommand(config),
-  new SearchCommand(),
-  new RenameCommand(),
-  new RemoveCommand(),
-  new TagCommand(),
-  new TagsCommand(),
-  new DownloadCommand(),
+	// SOUND ADMINISTRATION COMMANDS
+	new AddCommand(attachmentDownloader, youtubeDownloader),
+	new SoundsCommand(config),
+	new SearchCommand(),
+	new RenameCommand(),
+	new RemoveCommand(),
+	new TagCommand(),
+	new TagsCommand(),
+	new DownloadCommand(),
 
-  // HELP / INFO COMMANDS
-  new WelcomeCommand(config),
-  new HelpCommand(config),
-  new PrintConfCommand(config),
-  new FuckMeCommand(config),
-  new LastAddedCommand(),
-  new MostPlayedCommand(),
+	// HELP / INFO COMMANDS
+	new WelcomeCommand(config),
+	new HelpCommand(config),
+	new PrintConfCommand(config),
+	new FuckMeCommand(config),
+	new LastAddedCommand(),
+	new MostPlayedCommand(),
 
-  // CONFIGURATION RELATED COMMANDS
-  new AvatarCommand(config),
-  new ConfigCommand(config),
-  new IgnoreCommand(),
-  new UnignoreCommand()
+	// CONFIGURATION RELATED COMMANDS
+	new AvatarCommand(config),
+	new ConfigCommand(config),
+	new IgnoreCommand(),
+	new UnignoreCommand()
 ];
 
 const commandCollection = new CommandCollection(commands);
@@ -94,11 +94,11 @@ const messageHandler = new MessageHandler(commandCollection);
 const soundBot = new SoundBot(config, commandCollection, messageHandler, queue);
 
 interface SoundBotContainer {
-  config: Config;
-  soundBot: SoundBot;
+	config: Config;
+	soundBot: SoundBot;
 }
 
 export default {
-  config,
-  soundBot
+	config,
+	soundBot
 } as SoundBotContainer;

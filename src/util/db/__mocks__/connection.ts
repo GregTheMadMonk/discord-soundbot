@@ -5,12 +5,12 @@ const adapter = new FileSync('test-db.json');
 const connection = lowdb(adapter);
 
 connection
-  .defaults({
-    sounds: [],
-    ignoreList: [],
-    entrances: {},
-    exits: {}
-  })
-  .write();
+	.defaults({
+		sounds: [],
+		ignoreList: [],
+		entrances: {},
+		exits: {}
+	})
+	.write();
 
 export default connection;

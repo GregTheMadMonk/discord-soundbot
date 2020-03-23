@@ -1,18 +1,18 @@
 {
-  "clientId": "YOUR_CLIENT_ID",
-  "token": "YOUR_BOT_USER_TOKEN",
+	"clientId": "YOUR_CLIENT_ID",
+	"token": "YOUR_BOT_USER_TOKEN",
 
-  "language": "en",
-  "prefix": "!",
-  "acceptedExtensions": [".mp3", ".wav"],
-  "maximumFileSize": 1000000,
-  "volume": 1.0,
-  "deleteMessages": false,
-  "stayInChannel": false,
-  "timeout": 10,
-  "deafen": false,
-  "game": "",
-  "channelWhitelist": [],
-  "enableInsults": true,
-  "SFWMode": true
+	"language": "en",
+	"prefix": "!",
+	"acceptedExtensions": [".mp3", ".wav"],
+	"maximumFileSize": 1000000,
+	"volume": 1.0,
+	"deleteMessages": false,
+	"stayInChannel": false,
+	"timeout": 10,
+	"deafen": false,
+	"game": "",
+	"channelWhitelist": [],
+	"enableInsults": true,
+	"SFWMode": true
 }

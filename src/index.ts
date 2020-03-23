@@ -6,27 +6,27 @@ import Command from './bot/commands/base/Command';
 import SoundBot from './bot/SoundBot';
 
 class DiscordSoundBot {
-  private readonly config: Config;
-  private readonly bot: SoundBot;
+	private readonly config: Config;
+	private readonly bot: SoundBot;
 
-  constructor(config: ConfigInterface, commands: Command[] = []) {
-    this.config = Container.config;
-    this.bot = Container.soundBot;
+	constructor(config: ConfigInterface, commands: Command[] = []) {
+		this.config = Container.config;
+		this.bot = Container.soundBot;
 
-    this.initializeWith(config, commands);
-  }
+		this.initializeWith(config, commands);
+	}
 
-  public start() {
-    this.bot.start();
-    console.info(localize.t('url', { clientId: this.config.clientId }));
-  }
+	public start() {
+		this.bot.start();
+		console.info(localize.t('url', { clientId: this.config.clientId }));
+	}
 
-  private initializeWith(config: ConfigInterface, commands: Command[]) {
-    this.config.setFrom(config);
-    localize.setLocale(this.config.language);
+	private initializeWith(config: ConfigInterface, commands: Command[]) {
+		this.config.setFrom(config);
+		localize.setLocale(this.config.language);
 
-    this.bot.registerAdditionalCommands(commands);
-  }
+		this.bot.registerAdditionalCommands(commands);
+	}
 }
 
 export = DiscordSoundBot;

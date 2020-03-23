@@ -5,18 +5,18 @@ import { getSounds } from '@util/SoundUtil';
 import Command from './base/Command';
 
 export default class EntranceCommand implements Command {
-  public readonly TRIGGERS = ['entrance'];
+	public readonly TRIGGERS = ['entrance'];
 
-  public run(message: Message, params: string[]) {
-    const [entranceSound] = params;
-    if (!entranceSound) {
-      entrances.remove(message.author.id);
-      return;
-    }
+	public run(message: Message, params: string[]) {
+		const [entranceSound] = params;
+		if (!entranceSound) {
+			entrances.remove(message.author.id);
+			return;
+		}
 
-    const sounds = getSounds();
-    if (!sounds.includes(entranceSound)) return;
+		const sounds = getSounds();
+		if (!sounds.includes(entranceSound)) return;
 
-    entrances.add(message.author.id, entranceSound);
-  }
+		entrances.add(message.author.id, entranceSound);
+	}
 }
